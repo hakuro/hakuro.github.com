@@ -17,28 +17,28 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="This is an awesome blog">
         <meta name="viewport" content="width=device-width">
-        <title>Home &mdash; はくろのノート</title>
-            <link rel="stylesheet" href="_static/normalize.css" type="text/css">
-            <link rel="stylesheet" href="_static/sphinx.css" type="text/css">
-            <link rel="stylesheet" href="_static/main.css" type="text/css">
-            <link rel="stylesheet" href="_static/minimal5.css" type="text/css">
-            <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-            <link rel="stylesheet" href="_static/webfont.css" type="text/css">
-        <link rel="shortcut icon" href="_static/tinkerer.ico" /><!-- Load modernizr and JQuery -->
-        <script src="_static/vendor/modernizr-2.6.2.min.js"></script>
+        <title>MySQL5.6のmemcached pluginを使ってみる &mdash; はくろのノート</title>
+            <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/minimal5.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="../../../_static/webfont.css" type="text/css">
+        <link rel="shortcut icon" href="../../../_static/tinkerer.ico" /><!-- Load modernizr and JQuery -->
+        <script src="../../../_static/vendor/modernizr-2.6.2.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
-        <script src="_static/plugins.js"></script>
-        <script src="_static/main.js"></script>
-        <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" /><script type="text/javascript">
+        <script>window.jQuery || document.write('<script src="../../../_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="../../../_static/plugins.js"></script>
+        <script src="../../../_static/main.js"></script>
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" /><script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
+        URL_ROOT:    '../../../',
         VERSION:     '1.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
-    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script></head>
+    </script><script type="text/javascript" src="../../../_static/underscore.js"></script><script type="text/javascript" src="../../../_static/doctools.js"></script></head>
     <body>
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
@@ -47,22 +47,22 @@
       <div id="container">
   <nav>
     <ul><li class="quicklink"><div class="rss">
-        <a href="rss.html" title="Subscribe via RSS"><span class="webfont">B</span></a>
+        <a href="../../../rss.html" title="Subscribe via RSS"><span class="webfont">B</span></a>
     </div></li><li class="main-nav">
-          <a href="#">Home</a>
+          <a href="../../../index.html">Home</a>
         </li>
       </ul>
   </nav>
 
   <header>
             <hgroup>
-              <h1><a href="#">はくろのノート</a></h1><h2>メモとか、文章とか書きます。</h2></hgroup>
+              <h1><a href="../../../index.html">はくろのノート</a></h1><h2>メモとか、文章とか書きます。</h2></hgroup>
           </header>
       <div class="main-container"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
             <span>7月 27, 2013</span>
         </div>
-        <div class="section" id="mysql5-6memcached-plugin">
-<h1><a href="2013/07/27/mysql_memcached_plugin.html">MySQL5.6のmemcached pluginを使ってみる</a></h1>
+    <div class="section" id="mysql5-6memcached-plugin">
+<h1>MySQL5.6のmemcached pluginを使ってみる</h1>
 <p>MySQL5.6からはInnoDBにmemcachedのプロトコルでアクセスできるmemcached pluginが追加されています。</p>
 <p>詳細は以下のリファレンスマニュアルが詳しいのですが、イメージ的にはSQLのレイヤを介さずに直接ストレージエンジンとやりとりする形です。
 SQLのパースや実行計画の作成が必要ない分、速くなるという感じですね。</p>
@@ -90,7 +90,7 @@ SQLのパースや実行計画の作成が必要ない分、速くなるとい�
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>sudo service mysql start
 <span class="nv">$ </span>sudo cat /root/.mysql_secret
 <span class="nv">$ </span>mysql -uroot -p
-mysql&gt; SET PASSWORD FOR root@localhost<span class="o">=</span>PASSWORD<span class="o">(</span><span class="s1">'your password'</span><span class="o">)</span>;
+mysql&gt; SET PASSWORD FOR root@localhost<span class="o">=</span>PASSWORD<span class="o">(</span><span class="s1">&#39;your password&#39;</span><span class="o">)</span>;
 mysql&gt; <span class="nb">exit</span>
 Bye
 </pre></div>
@@ -109,14 +109,14 @@ Bye
 </div>
 <div class="highlight-text"><div class="highlight"><pre>NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
 
-In order to log into MySQL to secure it, we'll need the current password for the root user.  If you've just installed MySQL, and you haven't set the root password yet, the password will be blank, so you should just press enter here.
+In order to log into MySQL to secure it, we&#39;ll need the current password for the root user.  If you&#39;ve just installed MySQL, and you haven&#39;t set the root password yet, the password will be blank, so you should just press enter here.
 
 Enter current password for root (enter for none):
 OK, successfully used password, moving on...
 
 Setting the root password ensures that nobody can log into the MySQL root user without the proper authorisation.
 
-You already have a root password set, so you can safely answer 'n'.
+You already have a root password set, so you can safely answer &#39;n&#39;.
 
 Change the root password? [Y/n] n
 ... skipping.
@@ -126,12 +126,12 @@ By default, a MySQL installation has an anonymous user, allowing anyone to log i
 Remove anonymous users? [Y/n] Y
 ... Success!
 
-Normally, root should only be allowed to connect from 'localhost'.  This ensures that someone cannot guess at the root password from the network.
+Normally, root should only be allowed to connect from &#39;localhost&#39;.  This ensures that someone cannot guess at the root password from the network.
 
 Disallow root login remotely? [Y/n] Y
 ... Success!
 
-By default, MySQL comes with a database named 'test' that anyone can access.  This is also intended only for testing, and should be removed before moving into a production environment.
+By default, MySQL comes with a database named &#39;test&#39; that anyone can access.  This is also intended only for testing, and should be removed before moving into a production environment.
 
 Remove test database and access to it? [Y/n] n
 ... skipping.
@@ -141,7 +141,7 @@ Reloading the privilege tables will ensure that all changes made so far will tak
 Reload privilege tables now? [Y/n] Y
 ... Success!
 
-All done!  If you've completed all of the above steps, your MySQL installation should now be secure.
+All done!  If you&#39;ve completed all of the above steps, your MySQL installation should now be secure.
 
 Thanks for using MySQL!
 
@@ -190,7 +190,7 @@ tcp        0      0 *:memcache       *:*                LISTEN      18612/mysqld
 <span class="nv">$ </span>telnet 127.0.0.1 11211
 Trying 127.0.0.1...
 Connected to 127.0.0.1.
-Escape character is <span class="s1">'^]'</span>.
+Escape character is <span class="s1">&#39;^]&#39;</span>.
 get all
 END
 quit
@@ -202,7 +202,8 @@ Connection closed by foreign host.
 </div>
 </div>
 </div>
-        <div class="postmeta">
+
+    <div class="postmeta">
         <div class="author">
             <span>Posted by Naohisa Takahashi - hakuro</span>
         </div>
@@ -210,19 +211,18 @@ Connection closed by foreign host.
         <div class="tags">
             <span>
                 Tags:
-                <a href="tags/mysql.html">mysql</a>, <a href="tags/database.html">database</a></span>
+                <a href="../../../tags/mysql.html">mysql</a>, <a href="../../../tags/database.html">database</a></span>
         </div>
-        </div><div class="archive_link">
-        <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
-    </div></article><aside class="sidebar"><section><div class="widget">
+        </div>
+    </article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
-            <a href="2013/07/27/mysql_memcached_plugin.html">MySQL5.6のmemcached pluginを使ってみる</a>
+            <a href="#">MySQL5.6のmemcached pluginを使ってみる</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox">
     <h1>Search</h1>
-    <form action="search.html" method="get">
+    <form action="../../../search.html" method="get">
         <input type="text" name="q" />
         <button type="submit"><span class="webfont">L</span></button>
     </form>

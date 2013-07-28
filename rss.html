@@ -1,68 +1,18 @@
-
-
-<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:og="http://ogp.me/ns#"
-    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:og="http://ogp.me/ns#"
-    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:og="http://ogp.me/ns#"
-    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:og="http://ogp.me/ns#"
-    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="description" content="This is an awesome blog">
-        <meta name="viewport" content="width=device-width">
-        <title>Home &mdash; はくろのノート</title>
-            <link rel="stylesheet" href="_static/normalize.css" type="text/css">
-            <link rel="stylesheet" href="_static/sphinx.css" type="text/css">
-            <link rel="stylesheet" href="_static/main.css" type="text/css">
-            <link rel="stylesheet" href="_static/minimal5.css" type="text/css">
-            <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-            <link rel="stylesheet" href="_static/webfont.css" type="text/css">
-        <link rel="shortcut icon" href="_static/tinkerer.ico" /><!-- Load modernizr and JQuery -->
-        <script src="_static/vendor/modernizr-2.6.2.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
-        <script src="_static/plugins.js"></script>
-        <script src="_static/main.js"></script>
-        <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" /><script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.2.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script></head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
-
-      <div id="container">
-  <nav>
-    <ul><li class="quicklink"><div class="rss">
-        <a href="rss.html" title="Subscribe via RSS"><span class="webfont">B</span></a>
-    </div></li><li class="main-nav">
-          <a href="#">Home</a>
-        </li>
-      </ul>
-  </nav>
-
-  <header>
-            <hgroup>
-              <h1><a href="#">はくろのノート</a></h1><h2>メモとか、文章とか書きます。</h2></hgroup>
-          </header>
-      <div class="main-container"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
-            <span>7月 27, 2013</span>
-        </div>
-        <div class="section" id="mysql5-6memcached-plugin">
-<h1><a href="2013/07/27/mysql_memcached_plugin.html">MySQL5.6のmemcached pluginを使ってみる</a></h1>
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>はくろのノート</title>
+        <link>http://hakuro.github.io/</link>
+        <description>メモとか、文章とか書きます。</description>
+        <language>en-us</language>
+        <pubDate>Sat, 27 Jul 2013 00:00:00 +0900</pubDate>
+        
+        <item>
+            <link>http://hakuro.github.io/2013/07/27/mysql_memcached_plugin.html</link>
+            <guid>http://hakuro.github.io/2013/07/27/mysql_memcached_plugin.html</guid>
+            <title><![CDATA[MySQL5.6のmemcached pluginを使ってみる]]></title>
+            <description><![CDATA[<div class="section" id="mysql5-6memcached-plugin">
+<h1>MySQL5.6のmemcached pluginを使ってみる</h1>
 <p>MySQL5.6からはInnoDBにmemcachedのプロトコルでアクセスできるmemcached pluginが追加されています。</p>
 <p>詳細は以下のリファレンスマニュアルが詳しいのですが、イメージ的にはSQLのレイヤを介さずに直接ストレージエンジンとやりとりする形です。
 SQLのパースや実行計画の作成が必要ない分、速くなるという感じですね。</p>
@@ -201,38 +151,9 @@ Connection closed by foreign host.
 <p>selinuxの設定を戻して、memcachedを許可する設定を追加します。</p>
 </div>
 </div>
-</div>
-        <div class="postmeta">
-        <div class="author">
-            <span>Posted by Naohisa Takahashi - hakuro</span>
-        </div>
-        
-        <div class="tags">
-            <span>
-                Tags:
-                <a href="tags/mysql.html">mysql</a>, <a href="tags/database.html">database</a></span>
-        </div>
-        </div><div class="archive_link">
-        <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
-    </div></article><aside class="sidebar"><section><div class="widget">
-    <h1>Recent Posts</h1>
-    <ul><li>
-            <a href="2013/07/27/mysql_memcached_plugin.html">MySQL5.6のmemcached pluginを使ってみる</a>
-        </li></ul>
-</div>
-</section><section><div class="widget" id="searchbox">
-    <h1>Search</h1>
-    <form action="search.html" method="get">
-        <input type="text" name="q" />
-        <button type="submit"><span class="webfont">L</span></button>
-    </form>
-</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
-
-        <div class="footer-container"><footer class="wrapper">&copy; Copyright 2013, Naohisa Takahashi - hakuro. Powered by <a href="http://www.tinkerer.me/">Tinkerer</a> and <a href="http://sphinx.pocoo.org/">Sphinx</a>.</footer></div> <!-- footer-container -->
-
-      </div> <!--! end of #container --><!--[if lt IE 7 ]>
-          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
-          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
-        <![endif]-->
-    </body>
-</html>
+</div>]]></description>
+             <pubDate>Sat, 27 Jul 2013 00:00:00 +0900</pubDate>
+        </item>
+    
+    </channel>
+</rss>

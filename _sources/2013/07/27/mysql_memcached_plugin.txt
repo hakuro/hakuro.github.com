@@ -1,0 +1,170 @@
+MySQL5.6のmemcached pluginを使ってみる
+======================================
+
+MySQL5.6からはInnoDBにmemcachedのプロトコルでアクセスできるmemcached pluginが追加されています。
+
+詳細は以下のリファレンスマニュアルが詳しいのですが、イメージ的にはSQLのレイヤを介さずに直接ストレージエンジンとやりとりする形です。
+SQLのパースや実行計画の作成が必要ない分、速くなるという感じですね。
+
+`MySQL 5.6 Reference Manual 14.2.9. InnoDB Integration with memcached <http://dev.mysql.com/doc/refman/5.6/en/innodb-memcached.html>`_
+
+
+セットアップ
+------------
+
+MySQLのインストール
+"""""""""""""""""""
+
+まずはMySQL5.6をScientific Linux 6.4にインストールしてみました。
+
+CentOSでもおおむね一緒だと思います。
+
+.. code-block:: bash
+
+    $ mkdir mysql5.6 && cd mysql5.6
+    $ wget http://ftp.jaist.ac.jp/pub/mysql/Downloads/MySQL-5.6/MySQL-{client,server,devel,shared,shared-compad}-5.6.12-2.el6.x86_64.rpm
+    $ sudo yum install MySQL-{client,server,devel,shared-compat}-5.6.12-2.el6.x86_64.rpm
+    $ sudo yum install MySQL-shared-5.6.12-2.el6.x86_64.rpm
+
+先にshared-compatをインストールすると依存関係を壊さずにMySQLのアップグレードができます。
+
+起動と初期設定
+""""""""""""""
+
+インストールが完了したらMySQLを起動して、ひとまずrootでログインです。
+初期パスワードは「/root/.mysql_secret」に書かれているので確認します。
+
+初期パスワードを変更しないとなにもできないので、rootのパスワードを更新します。
+ちなみにPASSWORD関数を使わないで更新しようとすると注意されます。
+
+.. code-block:: bash
+
+    $ sudo service mysql start
+    $ sudo cat /root/.mysql_secret
+    $ mysql -uroot -p
+    mysql> SET PASSWORD FOR root@localhost=PASSWORD('your password');
+    mysql> exit
+    Bye
+
+インストール時に「mysql_secure_installation」を実行しておけと言われるので、実行しておきます。
+
+以下の順番で対話的に聞かれますので、Yかnを入力します。
+
+#. rootのパスワードを変更するか？
+#. anonymousユーザを削除するか？
+#. リモートからのrootユーザのログインを許可するか？
+#. testデータベースを削除するか？
+#. 権限テーブルを再読み込みするか？
+
+.. code-block:: bash
+
+    $ mysql_secure_installation
+
+.. code-block:: text
+
+    NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
+
+    In order to log into MySQL to secure it, we'll need the current password for the root user.  If you've just installed MySQL, and you haven't set the root password yet, the password will be blank, so you should just press enter here.
+
+    Enter current password for root (enter for none):
+    OK, successfully used password, moving on...
+
+    Setting the root password ensures that nobody can log into the MySQL root user without the proper authorisation.
+
+    You already have a root password set, so you can safely answer 'n'.
+
+    Change the root password? [Y/n] n
+    ... skipping.
+
+    By default, a MySQL installation has an anonymous user, allowing anyone to log into MySQL without having to have a user account created for them.  This is intended only for testing, and to make the installation go a bit smoother.  You should remove them before moving into a production environment.
+
+    Remove anonymous users? [Y/n] Y
+    ... Success!
+
+    Normally, root should only be allowed to connect from 'localhost'.  This ensures that someone cannot guess at the root password from the network.
+
+    Disallow root login remotely? [Y/n] Y
+    ... Success!
+
+    By default, MySQL comes with a database named 'test' that anyone can access.  This is also intended only for testing, and should be removed before moving into a production environment.
+
+    Remove test database and access to it? [Y/n] n
+    ... skipping.
+
+    Reloading the privilege tables will ensure that all changes made so far will take effect immediately.
+
+    Reload privilege tables now? [Y/n] Y
+    ... Success!
+
+    All done!  If you've completed all of the above steps, your MySQL installation should now be secure.
+
+    Thanks for using MySQL!
+
+    Cleaning up...
+
+
+memcached pluginの設定
+""""""""""""""""""""""
+
+memcached pluginを有効にするには管理用のテーブルの作成とデーモンプラグインのインストールが必要です。
+
+.. code-block:: bash
+
+    $ mysql -uroot -p < /usr/share/mysql/innodb_memcached_config.sql
+    $ mysql -uroot -p
+    mysql> install plugin daemon_memcached soname "libmemcached.so";
+    mysql> show plugins;
+    mysql> exit
+
+
+動作確認
+------------
+
+telnetで接続
+""""""""""""
+
+telnetで接続して確認してみようとしましたが、Connection refused。
+デフォルトのポートは11211です。
+
+そもそも、ポートが開いていないようなので、iptablesに設定を追加し、再起動。
+
+.. code-block:: bash
+
+    $ telnet 127.0.0.1 11211
+    Trying 127.0.0.1...
+    telnet: connect to address 127.0.0.1: Connection refused
+
+    $ sudo netstat -tap | grep memcache
+
+    $ sudo echo "-A INPUT -m state --state NEW -m tcp -p tcp --dport 11211 -j ACCEPT" >> /etc/sysconfig/iptables
+    $ sudo echo "COMMIT" >> /etc/sysconfig/iptables
+    $ sudo service iptables restart
+    $ sudo service mysql restart
+
+まだ接続できないので、今度はselinuxを疑いました。
+selinuxを一時的に無効にして、再起動。
+
+.. code-block:: bash
+
+    $ sudo setenforce 0
+    $ sudo service mysql restart
+    $ sudo netstat -tap | grep memcache
+    tcp        0      0 *:memcache       *:*                LISTEN      18612/mysqld
+
+    $ telnet 127.0.0.1 11211
+    Trying 127.0.0.1...
+    Connected to 127.0.0.1.
+    Escape character is '^]'.
+    get all
+    END
+    quit
+    Connection closed by foreign host.
+
+今度は接続に成功しました。
+
+selinuxの設定を戻して、memcachedを許可する設定を追加します。
+
+.. author:: default
+.. categories:: none
+.. tags:: mysql, database
+.. comments::
