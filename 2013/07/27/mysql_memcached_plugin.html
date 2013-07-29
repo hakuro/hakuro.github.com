@@ -67,7 +67,7 @@
 <p>詳細は以下のリファレンスマニュアルが詳しいのですが、イメージ的にはSQLのレイヤを介さずに直接ストレージエンジンとやりとりする形です。
 SQLのパースや実行計画の作成が必要ない分、速くなるという感じですね。</p>
 <p><a class="reference external" href="http://dev.mysql.com/doc/refman/5.6/en/innodb-memcached.html">MySQL 5.6 Reference Manual 14.2.9. InnoDB Integration with memcached</a></p>
-<div class="section" id="id1">
+<div id="more"> </div><div class="section" id="id1">
 <h2>セットアップ</h2>
 <div class="section" id="mysql">
 <h3>MySQLのインストール</h3>
@@ -198,7 +198,7 @@ Connection closed by foreign host.
 </pre></div>
 </div>
 <p>今度は接続に成功しました。</p>
-<p>selinuxの設定を戻して、memcachedを許可する設定を追加します。</p>
+<p>本来だとselinuxの設定を戻して、memcachedを許可する設定を追加すべきですが、ローカルの検証用なのでselinux無効化して使ってます。</p>
 </div>
 </div>
 </div>

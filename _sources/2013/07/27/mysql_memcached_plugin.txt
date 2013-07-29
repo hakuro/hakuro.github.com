@@ -8,6 +8,7 @@ SQLのパースや実行計画の作成が必要ない分、速くなるとい�
 
 `MySQL 5.6 Reference Manual 14.2.9. InnoDB Integration with memcached <http://dev.mysql.com/doc/refman/5.6/en/innodb-memcached.html>`_
 
+.. more::
 
 セットアップ
 ------------
@@ -162,7 +163,7 @@ selinuxを一時的に無効にして、再起動。
 
 今度は接続に成功しました。
 
-selinuxの設定を戻して、memcachedを許可する設定を追加します。
+本来だとselinuxの設定を戻して、memcachedを許可する設定を追加すべきですが、ローカルの検証用なのでselinux無効化して使ってます。
 
 .. author:: default
 .. categories:: none

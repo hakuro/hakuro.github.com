@@ -226,3 +226,8 @@ footer {
 
 .highlight {
     font-size: small;
+}
+
+iframe.twitter-share-button {
+    width: 88px!important;
+}
